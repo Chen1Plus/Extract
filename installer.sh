@@ -12,7 +12,7 @@ fi
 # parameters: tool, patern
 function optional {
 	if ! command -v "$1" &> /dev/null; then
-		echo "warning: $1 not found" 1>&2
+		echo -e "\033[33mwarning: $1 not found\033[0m" 1>&2
 		sed "${sed_inplace[@]}" "$2" "$tmp_script"
 	fi
 }
@@ -39,6 +39,7 @@ optional ciso '/\*\.cso)/d'
 optional zlib-flate '/\*\.zlib)/d'
 optional hdiutil '/\*\.dmg)/d'
 
+echo -e '' 1>&2
 echo '# Github: https://github.com/Chen1Plus/Extract'
 sed -e '/^#/d' -e '/^$/d' "$tmp_script"
 rm "$tmp_script"
