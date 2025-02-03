@@ -1,21 +1,4 @@
 # shellcheck shell=bash
-# function Extract for common file formats
-#
-# This is a Bash function called "extract" that is designed to extract a variety of file formats.
-# It takes one or more arguments, each of which represents a file or path that needs to be extracted.
-# If no arguments are provided, the function displays usage instructions.
-#
-# This bash script allows to download a file from Github storage https://github.com/xvoland/Extract/blob/master/extract.sh
-#
-# Usage:
-#     extract <path/file_name>.<zip|rar|bz2|gz|tar|tbz2|tgz|Z|7z|xz|ex|tar.bz2|tar.gz|tar.xz|.zlib|.cso|.zst>
-#
-# Example:
-# $ extract file_name.zip
-#
-# Author: Vitalii Tereshchuk, 2013
-# Web:    https://dotoca.net
-# Github: https://github.com/xvoland/Extract/blob/master/extract.sh
 
 function extract {
 	if [ $# -eq 0 ]; then
@@ -25,7 +8,7 @@ function extract {
 
 	for n in "$@"; do
 		if [ ! -f "$n" ]; then
-			echo "'$n' - file doesn't exist"
+			echo -e "\033[31m'$n' - file doesn't exist\033[0m"
 			return 1
 		fi
 
@@ -55,7 +38,7 @@ function extract {
 			*.zlib) zlib-flate -uncompress < ./"$n" > ./"$n.tmp" && mv ./"$n.tmp" ./"${n%.*zlib}" && rm -f "$n" ;;
 			*.dmg) hdiutil mount ./"$n" -mountpoint "./$n.mounted" ;;
 
-			*) echo "extract: '$n' - unknown archive method" && return 1 ;;
+			*) echo -e "extract: \033[31m'$n' - unsupported archive method\033[0m" && return 1 ;;
 		esac
 	done
 }
