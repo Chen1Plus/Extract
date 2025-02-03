@@ -39,7 +39,7 @@ optional ciso '/\*\.cso)/d'
 optional zlib-flate '/\*\.zlib)/d'
 optional hdiutil '/\*\.dmg)/d'
 
-echo -e '' 1>&2
+echo ''
 echo '# Github: https://github.com/Chen1Plus/Extract'
 sed -e '/^#/d' -e '/^$/d' "$tmp_script"
 rm "$tmp_script"
